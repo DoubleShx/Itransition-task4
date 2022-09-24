@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 async function start() {
   const PORT = Number(process.env.PORT) || 3000
   const app = await NestFactory.create(AppModule)
+  console.log('current PORT', PORT)
 
   const config = new DocumentBuilder()
   .setTitle("Задача #4")
