@@ -31,14 +31,14 @@ export class AuthService {
     private async generateToken(user: User) {
         const payload = { email: user.email, id: user.id }
         return {
-            token: this.jwtService.sign(payload)
+            token:  this.jwtService.sign(payload)
         }
     }
 
     private async validateUser(userDto: CreateUserDto) {
         const user = await this.userService.getUserByEmail(userDto.email)
         if (!user) {
-            throw new UnauthorizedException({ message: 'Неккоректная почта' })
+            throw new HttpException('Неккорректная почта', HttpStatus.BAD_REQUEST)
         }
         else {
             const isBanned = user.getDataValue('banned')
@@ -47,7 +47,7 @@ export class AuthService {
                 let loginUpdate = await this.userService.loginUpdate(user.getDataValue('id')).then((res => (user)))
                 return loginUpdate
             }
-            throw new UnauthorizedException({ message: 'Неккоректный пароль или пользователь заблокирован' })
+            throw new HttpException('Неккоректный пароль или пользователь заблокирован', HttpStatus.BAD_REQUEST)
         }
     }
 

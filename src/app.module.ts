@@ -13,9 +13,9 @@ import { AppController } from "./app.controller";
         }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
-            "dialectOptions": {
-                "ssl": true
-            },
+            // "dialectOptions": {
+            //     "ssl": true
+            // },
             logging: false,
             host: process.env.POSTGRES_HOST,
             port: Number(process.env.POSTGRES_PORT),
